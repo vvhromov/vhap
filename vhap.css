@@ -1,0 +1,17 @@
+.vhap_section {
+  border: 1px solid;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.vhap_section h2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+.vhap_section .form-table th {
+  padding: 0;
+  padding-top: 0.5rem;
+}
+.vhap_section .form-table td {
+  padding: 0;
+  padding-top: 0.5rem;
+}/*# sourceMappingURL=vhap.css.map */
