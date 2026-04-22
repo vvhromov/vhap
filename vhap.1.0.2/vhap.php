@@ -5,20 +5,16 @@ Plugin URI:     https://vahro.ru/blog/plugins/vhap-administration-plugin-templat
 Description:    VHAP - Administration plugin page template
 Author:         vahro
 Author URI:     https://vahro.ru/
-Version:        1.1.0
+Version:        1.0.1
+
+Ver 1.0.1
+Добавлен вывод икноки плагина в Top Level Menu
+
+Ver 1.0.2
+Добавлена опция vhap_icon - варианты "default"/"superhero"/"vahro"
+vhap_icon - radio buttons - выбор иконки плагина в секции "Настройки плагина"
+
 */
-
-// register_activation_hook() - https://developer.wordpress.org/reference/functions/register_activation_hook/
-// register_deactivation_hook() - https://developer.wordpress.org/reference/functions/register_deactivation_hook/
-// register_uninstall_hook() - https://developer.wordpress.org/reference/functions/register_uninstall_hook/
-// add_option() - https://developer.wordpress.org/reference/functions/add_option/
-// get_option() - https://developer.wordpress.org/reference/functions/get_option/
-// register_setting() - https://developer.wordpress.org/reference/functions/register_setting/
-// add_settings_section() - https://developer.wordpress.org/reference/functions/add_settings_section/
-// add_settings_field() - https://developer.wordpress.org/reference/functions/add_settings_field/
-// settings_fields() - https://developer.wordpress.org/reference/functions/settings_fields/
-// do_settings_sections() - https://developer.wordpress.org/reference/functions/do_settings_sections/
-
 
 defined( 'ABSPATH' ) OR exit; // Game over
 // !defined('ABSPATH') && exit; 
@@ -43,9 +39,6 @@ register_activation_hook( __FILE__,
       // если опции vhap_icon не существует, она добавляется в БД (wp_options) со значением 'vahro' 
       add_option('vhap_icon', 'vahro');
     }
-    // if( !get_option('vhap_array') ) {
-    //   add_option('vhap_array', ['one'=>1,'two'=>'два']);
-    // }
 });
 
 // деактивация плагина
@@ -84,7 +77,6 @@ add_action( 'admin_init', function() {
   register_setting('vhap_setting', 'vhap_deactivation', ['sanitize_callback' => 'vhap_deactivation_validate',]);
   register_setting('vhap_setting', 'vhap_icon', ['sanitize_callback' => 'vhap_icon_validate',]);
 
-// ============================================== vhap_section_options - секция настроек
   add_settings_section(
     'vhap_section_options', // ID секции, при добавлении поля (add_settings_field) ссылаемся на ID секции в которую добавляем
     'Настройка плагина (заголовок устанавливается функцией add_settings_section)', // заголовок (может быть пустой - '')
@@ -97,89 +89,6 @@ add_action( 'admin_init', function() {
     )
   );
 
-// ============================================== vhap_section_fields - секция образцов полей
-  add_settings_section(
-    'vhap_section_fields', // ID секции, при добавлении поля (add_settings_field) ссылаемся на ID секции в которую добавляем
-    'Заголовок секции vhap_section_fields (устанавливается функцией add_settings_section)', // заголовок (может быть пустой - '')
-    'vhap_section_fields_html', // функция для вывода HTML секции (необязательно)
-    'vhap_page', // ярлык страницы
-    array(
-      'before_section' => '<fieldset class=%s><details><summary>Образцы полей</summary>',
-      'after_section'  => '</details></fieldset>',
-      'section_class'  => 'vhap_section_fields',
-    )
-  );
-
-  function vhap_section_fields_html() {
-    echo "просто образец вывода полей, значения в БД не сохраняются<br>этот текст выводит callback функции add_settings_section()";
-  }
-
-// Поля секции vhap_section_fields - секция образцов полей
-// 
-// ==============================================  dropdown
-// 
-  add_settings_field(
-      'vhap_dropdown', 
-      'Dropdown <br>(Richard Of York Gave Battle In Vain)', 
-      'vhap_dropdown_html', // callback
-      'vhap_page',
-      'vhap_section_fields', // Id секции где размещается поле
-      ['name' => 'vhap_dropdown',] 
-      );
-  function vhap_dropdown_html ( $args ) {
-    // echo '<textarea type="textarea" rows="3" cols="40" name="' . $args[ 'name' ] . '"></textarea>';
-    $items = array("Red", "Orange", "Yellow", "Green", "Blue", "Indigo", "Violet");
-    echo "<select name='" . $args[ 'name' ] . "'>";
-    foreach( $items as $item ) {
-      echo "<option value='$item'>$item</option>";
-    }
-    echo "</select>";
-  }
-// ==============================================  radio
-// 
-  add_settings_field(
-    'vhap_radio', 
-    'Radio buttons', 
-    'vhap_radio_html', // callback
-    'vhap_page',
-    'vhap_section_fields', // Id секции где размещается поле
-    ['name' => 'vhap_radio',] 
-    );
-  function vhap_radio_html( $args ) {
-    $field = $args[ 'name' ];
-    echo "<label><input type='radio' name='$field' value='red'> red tablet </label>";
-    echo "<label><input type='radio' name='$field' value='blue'> blue tablet </label>";
-  }
-// ============================================== simple text
-// 
-  add_settings_field(
-      'vhap_simple_text', 
-      'Просто текстовое поле text', 
-      'vhap_simple_text_html', // callback
-      'vhap_page',
-      'vhap_section_fields', // Id секции где размещается поле
-      ['name' => 'vhap_simple_text',] 
-      );
-  function vhap_simple_text_html ( $args ) {
-    echo '<input type="text" name="' . $args[ 'name' ] . '">';
-  }
-// ============================================== textarea
-//
-  add_settings_field(
-      'vhap_textarea', 
-      'textarea', 
-      'vhap_textarea_html', // callback
-      'vhap_page',
-      'vhap_section_fields', // Id секции где размещается поле
-      ['name' => 'vhap_textarea',] 
-      );
-  function vhap_textarea_html ( $args ) {
-    echo '<textarea type="textarea" rows="3" cols="40" name="' . $args[ 'name' ] . '"></textarea>';
-  }
-
-
-// Поля секции vhap_section_options - секция настроек
-// 
 // ============================================== vhap_deactivation option - checkbox
   add_settings_field(
       'vhap_deactivation', 
@@ -257,7 +166,6 @@ add_action( 'admin_init', function() {
     return( in_array( $input, [ "default", "superhero", "vahro" ] ) ? $input : "default" );
   }
 } );
-
 
 // ================================================================================================= admin_notices
 add_action( 'admin_notices', function () {

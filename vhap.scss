@@ -1,0 +1,59 @@
+.vhap_section, .vhap_section_fields {
+  border: 1px solid;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.vhap_section {
+
+  h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+  .form-table th {
+    padding: 0;
+    padding-top: 0.5rem;
+  }
+  .form-table td {
+    padding: 0;
+    padding-top: 0.5rem;
+  }
+}
+.vhap_section_fields {
+  margin-top: 1rem;
+  summary {
+    font-size: large;
+    list-style: none;
+  }
+  details {
+    summary {
+      color: #2271b1;
+    }
+    summary:hover {
+      cursor: pointer;
+    }
+    summary::before {
+      // content: "\2228";
+      // content: "\21d3";
+      // content: "\21b6";
+      // content: "\21e9";
+      // вертикальная стрелка вниз
+      // content: "\25BC";
+      content: url('data:image/svg+xml,%3Csvg%20width%3D%2214%22%20height%3D%228%22%20viewBox%3D%220%200%2014%208%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill%3D%22%232271b1%22%20d%3D%22M1.71%2C.29L6.5%2C5.08%2C11.29%2C.29c.39-.39%2C1.02-.39%2C1.41%2C0%2C.39%2C.39%2C.39%2C1.02%2C0%2C1.41L7.21%2C7.2c-.39%2C.39-1.02%2C.39-1.41%2C0L.29%2C1.71c-.39-.39-.39-1.02%2C0-1.41%2C.39-.39%2C1.02-.39%2C1.41%2C0Z%22%2F%3E%3C%2Fsvg%3E');
+      margin-right: 1rem;
+    }
+  }
+  details[open] {
+    summary::before {
+      // content: "\2227";
+      // content: "\21bb";
+      // content: "\21e7";
+      // content: "\25B2";
+      content: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20%20width%3D%2214%22%20height%3D%228%22%20viewBox%3D%220%200%2014%208%22%3E%3Cpath%20fill%3D%22%232271b1%22%20d%3D%22M11.29%2C7.2L6.5%2C2.41%2C1.71%2C7.2c-.39%2C.39-1.02%2C.39-1.41%2C0-.39-.39-.39-1.02%2C0-1.41L5.79%2C.29c.39-.39%2C1.02-.39%2C1.41%2C0l5.5%2C5.5c.39%2C.39%2C.39%2C1.02%2C0%2C1.41-.39%2C.39-1.02%2C.39-1.41%2C0Z%22%2F%3E%3C%2Fsvg%3E');
+
+      // margin-right: 1rem;
+    }
+    summary {
+      /* color: red; */
+    }
+  }
+}
